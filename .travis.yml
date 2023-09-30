@@ -25,5 +25,5 @@ after_success:
   # - docker push $YOUR_DOCKER_HUB/udagram-api-user
   # - docker push $YOUR_DOCKER_HUB/udagram-api-feed
   # - docker push $YOUR_DOCKER_HUB/udagram-frontend
-  - docker-compose -f docker-compose-build.yaml push
+  - docker-compose push
 
