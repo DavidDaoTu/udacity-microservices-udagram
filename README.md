@@ -23,3 +23,25 @@ export AWS_BUCKET=mys3udagram
    --> Solution: 
    + Change RUN npm install -f in Dockerfile.
    + Change "typescript" "~3.5.3" in package.json & package-lock.json
+
+## Part 3: CI notes
+1. Remember to tag just built images with DOCKERHUB repository name in .travis.yml, if not we can't push them to DockerHub.
+
+```bash
+script:
+  - docker --version # print the version for logging  
+  - echo "Building udagram microservices app"
+  ## Run this command from the directory where you have the "docker-compose-build.yaml" file present
+  - docker-compose -f docker-compose-build.yaml build --parallel
+  - docker tag reverseproxy $YOUR_DOCKER_HUB/reverseproxy:latest
+  - docker tag udagram-api-user $YOUR_DOCKER_HUB/udagram-api-user:latest
+  - docker tag udagram-api-feed $YOUR_DOCKER_HUB/udagram-api-feed:latest
+  - docker tag udagram-frontend $YOUR_DOCKER_HUB/udagram-frontend:latest
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push $YOUR_DOCKER_HUB/reverseproxy
+  - docker push $YOUR_DOCKER_HUB/udagram-api-user
+  - docker push $YOUR_DOCKER_HUB/udagram-api-feed
+  - docker push $YOUR_DOCKER_HUB/udagram-frontend
+```
