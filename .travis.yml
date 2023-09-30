@@ -1,0 +1,28 @@
+language: node_js
+node_js:
+  - 13
+
+services:
+  - docker
+
+# Pre-testing installs
+install:
+  - echo "nothing needs to be installed"
+
+# Scripts to be run such as tests
+before_script:
+  - echo "no tests"  
+
+script:
+  - docker --version # print the version for logging  
+  - echo "Building udagram microservices app"
+  ## Run this command from the directory where you have the "docker-compose-build.yaml" file present
+  - docker-compose -f docker-compose-build.yaml build --parallel 
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push $YOUR_DOCKER_HUB/reverseproxy
+  - docker push $YOUR_DOCKER_HUB/udagram-api-user
+  - docker push $YOUR_DOCKER_HUB/udagram-api-feed
+  - docker push $YOUR_DOCKER_HUB/udagram-frontend
+

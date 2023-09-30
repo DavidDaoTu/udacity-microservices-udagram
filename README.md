@@ -17,7 +17,8 @@ export AWS_BUCKET=mys3udagram
 
 ## Part 2: Microservices notes
 1. "npm ERR! Cannot read property '@types/bcrypt' of undefined"
-   --> Solution: Change Node version 16 in Dockerfile
+   --> Solution: 
+   + Change Node version 16 in Dockerfile
 2. "npm ERR! Cannot read property '@angular/common' of undefined"
    --> Solution: 
    + Change RUN npm install -f in Dockerfile.
