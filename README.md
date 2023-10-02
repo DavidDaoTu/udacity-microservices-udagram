@@ -118,7 +118,15 @@ udagram-api-user, udagram-frontend, udagram-reverseproxy folders.
    </p>
 
 
+> **_Note that:_**
+   Because of ***"Cross-Origin Read Blocking (CORB)"*** so my deployment on AWS EKS is not so success to load posts even I enabled S3 CORS. 
+   I just wanna say that my local deployment connected to AWS S3 & AWS RDS Postgres is working very well as below:
 
+   <p align="center">
+   <img src="Screenshots/local_deployment.png" width="100%" title="A screenshot of local deployement" alt="A screenshot of local deployement"/>
+   </p>
+
+>=========================> END OF PROJECT RUBRIC <=====================
 ### !! THE BELOW SECTION IS NOT RELATED TO RUBRIC !!
 
 =============  Only use for my notes, reviewers don't need to care ============= 
