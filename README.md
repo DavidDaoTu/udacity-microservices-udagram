@@ -89,10 +89,10 @@ udagram-api-user, udagram-frontend, udagram-reverseproxy folders.
 
    Screenshot of Kubernetes cluster of command kubectl describe hpa has autoscaling configured with CPU metrics
    <p align="center">
-   <img src="Screenshots/kubectl_get_hpa.png" width="100%" title="A screenshot of kubectl get hpa" alt="A screenshot of kubectl get hpa"/>
+   <img src="Screenshots/kubectl_describe_hpa.png" width="100%" title="A screenshot of kubectl get hpa" alt="A screenshot of kubectl get hpa"/>
    </p>
 
-
+   I also show the kubectl get hpa command:
    <p align="center">
    <img src="Screenshots/kubectl_hpa.png" width="100%" title="A screenshot of kubectl describe hpa" alt="A screenshot of kubectl describe hpa"/>
    </p>
@@ -258,6 +258,14 @@ $ kubectl describe configmap
 3. Deployment
 
 + Configure all key-value pairs in a secret as container environment variables: https://kubernetes.io/docs/tasks/inject-data-application/distribute-credentials-secure/#configure-all-key-value-pairs-in-a-secret-as-container-environment-variables
+
+> **Note**: In order to fix error "FailedGetResourceMetric" with auto-scaling. We need to install ***"Kubernetes Metrics Server"*** (https://docs.aws.amazon.com/eks/latest/userguide/metrics-server.html). 
+
+```bash
+$ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+$ kubectl get deployment metrics-server -n kube-system
+```
+Then we deploy our pods.
 
 ```bash
 ## Deployments - Double check the Dockerhub image name and version in the deployment files
