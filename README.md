@@ -1,13 +1,125 @@
 # udacity-microservices-udagram
 Udacity's Microservices Udagram Project
 
+First of all, my Udagram microservices deployed at: http://ab70b2cdab75f4d27bd7b6a11072ea0e-962554426.us-east-1.elb.amazonaws.com/home
+
+## PROJECT RUBRIC FOR REVIEWERS
+
+### I. Containers and Microservices
+
+**Success Criteria:**
+
+1. Divide an application into microservices: /feed and /user backends are separated into independent projects.
+
+- **Solution**: I seperated ***udagram-api-feed*; *udagram-api-user*** folders as the snapshot below
+
+   <p align="center">
+   <img src="Screenshots/microservice_app.png" width="100%" title="Divide an application into microservices" alt="Divide an application into microservices"/>
+   </p>
+
+
+2. Build and run a container image using Docker
+
+- **Solution**: I included Dockerfiles in each service as udagram-api-feed,
+udagram-api-user, udagram-frontend, udagram-reverseproxy folders.
+
+   <p align="center">
+   <img src="Screenshots/Dockerfiles_in_each_services.png" width="100%" title="Project includes Dockerfiles to successfully create Docker images for /feed, /user backends, project frontend, and reverse proxy" alt="Project includes Dockerfiles to successfully create Docker images for /feed, /user backends, project frontend, and reverse proxy"/>
+   </p>
+   
+   I already built Docker images & pushed microservices images to my DockerHub.
+   <p align="center">
+   <img src="Screenshots/DockerHub.png" width="100%" title="Screenshot of DockerHub shows the images" alt="Screenshot of DockerHub shows the images"/>
+   </p>
+
+### II. Independent Releases and Deployments
+
+**Success Criteria:**
+
+1. Use Travis to build a CI/CD pipeline
+- **Solution**: My project consists **.travis.yml** file.
+  
+   <p align="center">
+   <img src="Screenshots/travis_ci.png" width="100%" title="Project includes a .travis.yml file" alt="Project includes a .travis.yml file"/>
+   </p>
+
+   The snapshot below show TravisCI interface showing a sucessful build Docker images:
+   <p align="center">
+   <img src="Screenshots/travis_ci_interface.png" width="100%" title="Screenshot of the Travis CI interface shows a successful build" alt="Screenshot of the Travis CI interface shows a successful build"/>
+   </p>
+
+   Then TravisCI also successfully push Docker images to my DockerHub with tag latest: digest: sha256...
+   <p align="center">
+   <img src="Screenshots/continuous_deployment.png" width="100%" title="Screenshot of the Travis CI interface shows a successful deploy" alt="Screenshot of the Travis CI interface shows a successful deploy"/>
+   </p>
+
+
+### III. Service Orchestration with Kubernetes
+
+**Success Criteria:**
+1. Deploy microservices using a Kubernetes cluster on AWS
+- **Solution**: The below presents the success deployement & pods with status running on AWS EKS
+   <p align="center">
+   <img src="Screenshots/kubectl_get.png" width="100%" title="A screenshot of kubectl commands show the Frontend and API projects deployed in Kubernetes" alt="A screenshots of kubectl commands show the Frontend and API projects deployed in Kubernetes"/>
+   </p>
+
+   The output of kubectl describe services does not expose any sensitive strings such as database passwords:
+   <p align="center">
+   <img src="Screenshots/kubectl_describe_service.png" width="100%" title="A screenshot of kubectl commands show the Frontend and API projects deployed in Kubernetes" alt="A screenshots of kubectl commands show the Frontend and API projects deployed in Kubernetes"/>
+   </p>
+
+2. Use a reverse proxy to direct requests to the appropriate backend
+- **Solution**: I also expose External IP of frontend & reverse proxy service, please check below snapshots:
+  
+   <p align="center">
+   <img src="Screenshots/kubectl_get_services.png" width="100%" title="A screenshot of kubectl get services" alt="A screenshot of kubectl get services"/>
+   </p>
+
+   In Frontend console log, I printed the External IP of reverseproxy's URL
+   <p align="center">
+   <img src="Screenshots/reverseproxy_external_ip.png" width="100%" title="A screenshot of External IP's reverseproxy" alt="A screenshot of deployement"/>
+   </p>
+
+
+3. Configure scaling and self-healing for each service
+- **Solution**: Kubernetes services are replicated. At least one of the Kubernetes services has replicas: defined with a value greater than 1 in its deployment.yml file
+   <p align="center">
+   <img src="Screenshots/replicas_deployment.png" width="100%" title="A screenshot of replicas in deployment file" alt="A screenshot of replicas in deployment file"/>
+   </p>
+
+   Screenshot of Kubernetes cluster of command kubectl describe hpa has autoscaling configured with CPU metrics
+   <p align="center">
+   <img src="Screenshots/kubectl_get_hpa.png" width="100%" title="A screenshot of kubectl get hpa" alt="A screenshot of kubectl get hpa"/>
+   </p>
+
+
+   <p align="center">
+   <img src="Screenshots/kubectl_hpa.png" width="100%" title="A screenshot of kubectl describe hpa" alt="A screenshot of kubectl describe hpa"/>
+   </p>
+
+
+### IV. Debugging, Monitoring, and Logging
+
+**Success Criteria:**
+
+1. Use logs to capture metrics for debugging a microservices deployment
+
+- **Solution**: Screenshot of one of the backend API pod logs indicates user activity that is logged when an API call is made.
+   
+   When accessing the deployed web: "http://ab70b2cdab75f4d27bd7b6a11072ea0e-962554426.us-east-1.elb.amazonaws.com", backend feed API is called & shown as below:
+
+   <p align="center">
+   <img src="Screenshots/kubectl_logs_feed.png" width="100%" title="A screenshot of kubectl logs backend feed API's pod" alt="A screenshot of kubectl logs backend feed API's pod"/>
+   </p>
+
+   In addition to that, when I do a log-in activity on the Frontend, so the backend-user API call shown as below:
+   <p align="center">
+   <img src="Screenshots/kubectl_logs_user.png" width="100%" title="A screenshot of kubectl logs backend user API's pod" alt="A screenshot of kubectl logs backend user API's pod"/>
+   </p>
 
 
 
-
-
-
-### THE BELOW SECTION IS NOT RELATED TO RUBRIC 
+### !! THE BELOW SECTION IS NOT RELATED TO RUBRIC !!
 
 =============  Only use for my notes, reviewers don't need to care ============= 
 #### Part 1: Monolithic notes
