@@ -89,12 +89,12 @@ udagram-api-user, udagram-frontend, udagram-reverseproxy folders.
 
    Screenshot of Kubernetes cluster of command kubectl describe hpa has autoscaling configured with CPU metrics
    <p align="center">
-   <img src="Screenshots/kubectl_describe_hpa.png" width="100%" title="A screenshot of kubectl describe hpa" alt="A screenshot of kubectl describe hpa"/>
+   <img src="Screenshots/kubectl_describe_hpa_fixed.png" width="100%" title="A screenshot of kubectl describe hpa" alt="A screenshot of kubectl describe hpa"/>
    </p>
 
    I also show the kubectl get hpa command:
    <p align="center">
-   <img src="Screenshots/kubectl_get_hpa.png" width="100%" title="A screenshot of kubectl get hpa" alt="A screenshot of kubectl get hpa"/>
+   <img src="Screenshots/kubectl_get_hpa_fixed.png" width="100%" title="A screenshot of kubectl get hpa" alt="A screenshot of kubectl get hpa"/>
    </p>
 
 
