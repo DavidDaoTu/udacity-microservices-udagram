@@ -6,4 +6,5 @@ data:
   # Add your environment variables here  
   AWS_REGION: us-east-1
   AWS_PROFILE: default
-  AWS_BUCKET: mys3udagram  
+  AWS_BUCKET: mys3udagram
+  URL: 'http://localhost:8080'
