@@ -348,3 +348,37 @@ $ kubectl expose deployment frontend --type=LoadBalancer --name=publicfrontend
 $ kubectl get services 
 $ kubectl get pods # It should show the STATUS as Running
 ```
+
+Connecting services deployed on k8s cluster as below:
+   <p align="center">
+   <img src="Screenshots/deployments.png" width="100%" title="Connecting services deployed on K8S cluster" alt="Connecting services deployed on "/>
+   </p>
+   
+### Update the Environment Variables and Re-Deploy the Application
+Once both the services - frontend and reverseproxy - have an External IP, change the API endpoints in the following places locally.
+
+1. Update **udagram-frontend/src/environments/environment.ts** file - Replace the keyword **localhost** in the **http://localhost:8080/api/v0** string with the External-IP of the **reverseproxy deployment**. For example,
+```js
+## Assuming http://ae0c61849655c46e581aa91d3c03386d-513419455.us-east-1.elb.amazonaws.com is the External-IP of the *reverseproxy* service.
+apiHost: 'http://ae0c61849655c46e581aa91d3c03386d-513419455.us-east-1.elb.amazonaws.com:8080/api/v0'
+```
+Here, we are using the External-IP to connect the frontend to the reverseproxy.
+
+2. Update udagram-frontend/src/environments/environment.prod.ts file in the same way as done for the environment.ts file.
+
+3. Build a new frontend image, and push it to the Dockerhub. While building a new image, it is recommended to use a different tag each time, as shown in the example below:
+
+```bash
+## Run these commands from the /udagram-frontend directory
+docker build . -t [Dockerhub-username]/udagram-frontend:v6
+docker push [Dockerhub-username]/udagram-frontend:v6
+```
+4. Next, re-deploy the new frontend image to the k8s cluster. You will have to update the image tag in the frontend-deployment.yaml file.
+
+```bash
+## Run these commands from the /udagram-deployment directory
+## Rolling update the containers of "frontend" deployment
+kubectl set image deployment frontend frontend=[Dockerhub-username]/udagram-frontend:v6
+```
+Check your deployed application at the External IP of your publicfrontend service.
+
